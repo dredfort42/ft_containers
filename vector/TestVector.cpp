@@ -1,6 +1,8 @@
+// compilation:
+// c++ -Wall -Wextra -Werror  -D STATUS=1 *.cpp -o vector.out && ./vector.out
 #include <iostream>
 
-#if 1
+#if STATUS
 	#include <vector>
 	namespace ft = std;
 #else
@@ -65,7 +67,7 @@ std::ostream &operator<<(std::ostream &out, const Test &value)
 
 int main() {
 	Test t1((unsigned)1);
-	Test t2((unsigned)3);
+	Test t2((unsigned)1);
 
 		std::cout << (t1 == t2) << std::endl;
 //		ft::vector<Test> vector;
