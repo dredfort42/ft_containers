@@ -47,12 +47,6 @@ namespace ft
 		{
 			if (n < 1)
 				throw std::bad_alloc();
-				//			else if (!n) {
-				//				_size = 0;
-				//				_capacity = 0;
-				//				_data = nullptr;
-				//				_allocator = allocator;
-				//			}
 			else
 			{
 				_allocator = allocator;
@@ -68,11 +62,27 @@ namespace ft
 			}
 		}
 
-////			range (3)
-//			template<class InputIterator>
-//			vector(InputIterator first, InputIterator last,
-//				   const allocator_type &allocator = allocator_type());
-//
+//		range (3) range constructor
+//		Constructs a container with as many elements as the range [first,last),
+//		with each element constructed from its corresponding element in that range, in the same order.
+		template<class InputIterator>
+		vector(InputIterator first, InputIterator last,
+			   const allocator_type &allocator = allocator_type())
+		{
+			_allocator = allocator;
+			_size = 0;
+			for (InputIterator it = first; it != last; it++)
+				_size++;
+			_capacity = _size;
+			_data = _allocator.allocate(_capacity);
+			value_type *tmpData = _data;
+			for (InputIterator it = first; it != last; it++)
+			{
+				_allocator.construct(tmpData, *it);
+				tmpData++;
+			}
+		}
+
 ////			copy (4)
 //			vector(const vector &x)
 //			{ *this = x };

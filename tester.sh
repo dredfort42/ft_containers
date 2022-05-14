@@ -4,4 +4,4 @@ echo "=-=-=-=-= DIFF =-=-=-=-="
 diff stdVector ftVector
 echo "=-=-=-= END DIFF =-=-=-="
 cat -e ftVector
-rm stdVector ftVector vector.out
+rm -rf stdVector ftVector vector.out ./*.dSYM
