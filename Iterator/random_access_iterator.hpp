@@ -1,7 +1,6 @@
 #pragma once
 #include <iostream>
 #include "iterator.hpp"
-#include "iterator_traits.hpp"
 
 namespace ft {
 	template <typename T>
