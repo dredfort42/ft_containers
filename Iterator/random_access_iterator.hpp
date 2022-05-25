@@ -4,7 +4,8 @@
 
 namespace ft {
 	template <typename T>
-	class random_access_iterator: ft::iterator<ft::random_access_iterator_tag, T> {
+	class random_access_iterator: ft::iterator<ft::random_access_iterator_tag, T>
+	{
 	public:
 		// - категория итератора (самый глубокий из тегов категорий, которой соответствует итератор)
 		typedef typename ft::iterator<ft::random_access_iterator_tag, T>::iterator_category iterator_category;
@@ -48,6 +49,12 @@ namespace ft {
 			return (*this);
 		}
 
+		random_access_iterator& operator--()
+		{
+			_element--;
+			return (*this);
+		}
+
 		//test this operator
 		random_access_iterator operator++(int)
 		{
@@ -79,13 +86,15 @@ namespace ft {
 
 	template<typename TL, typename TR>
 	typename ft::random_access_iterator<TL>::difference_type
-	operator==(const ft::random_access_iterator<TL> left, const ft::random_access_iterator<TR> right) {
+	operator==(const ft::random_access_iterator<TL> left, const ft::random_access_iterator<TR> right)
+	{
 		return (left.getElement() == right.getElement());
 	}
 
 	template<typename TL, typename TR>
 	typename ft::random_access_iterator<TL>::difference_type
-	operator!=(const ft::random_access_iterator<TL> left, const ft::random_access_iterator<TR> right) {
+	operator!=(const ft::random_access_iterator<TL> left, const ft::random_access_iterator<TR> right)
+	{
 		return (left.getElement() != right.getElement());
 	}
 

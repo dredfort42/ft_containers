@@ -226,10 +226,13 @@ int main()
 			.end(); it++)
 		std::cout << ' ' << *it;
 	std::cout << '\n';
+
+
 //	std::cout << "[ITERATOR ++i] myvector contains:";
 //	for (ft::vector<int>::iterator it = myvector.rend() ; it != myvector
 //			.rbegin(); it--)
 //		std::cout << ' ' << *it;
 //	std::cout << '\n';
-
+	std::cout << *myvector.rbegin() << "\n";
+//	" | " << *myvector.rend() << "\n";
 }
