@@ -14,20 +14,17 @@ namespace ft
 	class vector
 	{
 	public:
-		typedef T value_type;
+		typedef T															value_type;
 		typedef Allocator 													allocator_type;
 		typedef typename allocator_type::reference 							reference;
 		typedef typename allocator_type::const_reference 					const_reference;
 		typedef typename allocator_type::pointer 							pointer;
 		typedef typename allocator_type::const_pointer 						const_pointer;
 		typedef typename allocator_type::size_type 							size_type;
-
 		typedef ft::random_access_iterator<value_type> 						iterator;
 		typedef ft::random_access_iterator<const value_type>				const_iterator;
-		//TMP
 		typedef ft::reverse_iterator<iterator> 								reverse_iterator;
 		typedef ft::reverse_iterator<const_iterator>						const_reverse_iterator;
-
 		typedef typename ft::iterator_traits<iterator>::difference_type		difference_type;
 
 //		[V] CONSTRUCT VECTOR
@@ -116,6 +113,7 @@ namespace ft
 		}
 
 //		[V] COPY
+
 		vector	&operator= (const vector& x)
 		{
 			_allocator = x._allocator;
@@ -141,16 +139,14 @@ namespace ft
 		iterator end() {return &_data[_size];}
 		const_iterator end() const {return &_data[_size];}
 
-//		TRY
 //		Returns a reverse iterator pointing to the last element in the vector.
-//		reverse_iterator rbegin() {return &_data[_size - 1];}
-//		const_reverse_iterator rbegin() const {return &_data[_size - 1];}
 		reverse_iterator rbegin() {return reverse_iterator(end());}
+		const_reverse_iterator rbegin() const {return reverse_iterator(end());}
 
 //		Returns a reverse iterator pointing to the theoretical element preceding
 //		the first element in the vector
-//		reverse_iterator rend() {return &_data[0];}
-//		const_reverse_iterator rend() const {return &_data[0];}
+		reverse_iterator rend() {return reverse_iterator(begin());}
+		const_reverse_iterator rend() const {return reverse_iterator(begin());}
 
 //		CAPACITY
 

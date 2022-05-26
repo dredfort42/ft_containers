@@ -234,5 +234,6 @@ int main()
 //		std::cout << ' ' << *it;
 //	std::cout << '\n';
 	std::cout << *myvector.rbegin() << "\n";
+//	std::cout << *(myvector.rend()) << "\n";
 //	" | " << *myvector.rend() << "\n";
 }

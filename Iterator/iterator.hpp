@@ -54,6 +54,8 @@ namespace ft
 		typedef ft::random_access_iterator_tag			iterator_category;
 	};
 
+//	Distance between iterators
+//	Calculates the number of elements between first and last.
 	template<class InputIter>
 	typename ft::iterator_traits<InputIter>::difference_type
 	distance(InputIter first, InputIter last)
