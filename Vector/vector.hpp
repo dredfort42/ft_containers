@@ -114,7 +114,7 @@ namespace ft
 
 //		[V] COPY
 
-		vector	&operator= (const vector& x)
+		vector	&operator=(const vector& x)
 		{
 			_allocator = x._allocator;
 			_size = x._size;
@@ -165,13 +165,13 @@ namespace ft
 //		[V] ELEMENT ACCESS:
 
 //		Returns a reference to the element at position n in the vector container.
-		reference operator[] (size_type n) {return _data[n];}
-		const_reference operator[] (size_type n) const {return _data[n];}
+		reference operator[](size_type n) {return _data[n];}
+		const_reference operator[](size_type n) const {return _data[n];}
 
 	private:
-		allocator_type _allocator;
-		value_type *_data;
-		size_type _capacity;
-		size_type _size;
+		allocator_type	_allocator;
+		value_type 		*_data;
+		size_type 		_capacity;
+		size_type 		_size;
 	};
 }
