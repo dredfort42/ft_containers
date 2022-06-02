@@ -264,4 +264,52 @@ int main()
 				<< tester.capacity() << " "
 				<< (tester.empty() ?  "EMPTY" : "NOT EMPTY") << " "
 				<< std::endl;
+
+	for (unsigned i = 0; i < fifth.size(); i++)
+		std::cout << ' ' << fifth[i];
+	std::cout << '\n';
+	for (unsigned i = 0; i < myvector.size(); i++)
+		std::cout << ' ' << myvector[i];
+	std::cout << '\n';
+	fifth.swap(myvector);
+	std::cout << "swap fifth and myvector:" << std::endl;
+	for (unsigned i = 0; i < fifth.size(); i++)
+		std::cout << ' ' << fifth[i];
+	std::cout << '\n';
+	for (unsigned i = 0; i < myvector.size(); i++)
+		std::cout << ' ' << myvector[i];
+	std::cout << '\n';
+
+	myvector.erase(myvector.begin() + 1);
+	std::cout << "erase [1] myvector:";
+	for (unsigned i = 0; i < myvector.size(); i++)
+		std::cout << ' ' << myvector[i];
+	std::cout << '\n';
+	std::cout 	<< "INT type tester: "
+				 << myvector.size() << " "
+				 << myvector.capacity() << " "
+				 << (myvector.empty() ? "EMPTY" : "NOT EMPTY") << " "
+				 << std::endl;
+
+//	myvector.erase(myvector.begin() + 5, myvector.begin() + 15);
+//	std::cout << "erase from middle in myvector:";
+//	for (unsigned i = 0; i < myvector.size(); i++)
+//		std::cout << ' ' << myvector[i];
+//	std::cout << '\n';
+//	std::cout 	<< "INT type tester: "
+//				 << myvector.size() << " "
+//				 << myvector.capacity() << " "
+//				 << (myvector.empty() ? "EMPTY" : "NOT EMPTY") << " "
+//				 << std::endl;
+
+	myvector.clear();
+	std::cout << "clear myvector:";
+	for (unsigned i = 0; i < myvector.size(); i++)
+		std::cout << ' ' << myvector[i];
+	std::cout << '\n';
+	std::cout 	<< "INT type tester: "
+				 << myvector.size() << " "
+				 << myvector.capacity() << " "
+				 << (myvector.empty() ? "EMPTY" : "NOT EMPTY") << " "
+				 << std::endl;
 }

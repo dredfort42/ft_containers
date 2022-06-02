@@ -229,6 +229,80 @@ namespace ft
 		reference back() {return &_data[_size - 1];}
 		const_reference back() const {return &_data[_size - 1];}
 
+//		[X] MODIFIERS:
+//		In the range version, the new contents are elements constructed
+//		from each of the elements in the range between first and last,
+//		in the same order.
+//		template <class InputIterator>
+//		void assign (InputIterator first, InputIterator last)
+//		{
+//			...
+//		}
+
+//		In the fill version, the new contents are n elements,
+//		each initialized to a copy of val.
+//		void assign (size_type n, const value_type& val);
+
+//		Removes from the vector either a single element (position).
+		iterator erase(iterator position)
+		{
+			if (position + 1 == end())
+				_allocator.destroy(&(*position));
+			else
+			{
+				for (int i = 0; position + i + 1 < end(); i++)
+				{
+					_allocator.construct(&(*(position + i)),
+										 *(position + i + 1));
+					_allocator.destroy(&(*(position + i + 1)));
+				}
+			}
+			_size -= 1;
+			return position;
+		}
+
+//		Removes from the vector a range of elements ([first,last)).
+		iterator erase (iterator first, iterator last)
+		{
+			iterator temp = first;
+			for (; first != last; first++)
+				_allocator.destroy(&(*first));
+			for (int i = 0; i < end() - last; i++)
+			{
+				_allocator.construct(&(*(temp + i), *(last + i)));
+				_allocator.destroy(&(*(last + i)));
+			}
+			_size -= last - temp;
+			return temp;
+		}
+
+//		Swap content
+//		Exchanges the content of the container by the content of x, which is another vector object of the same type. Sizes may differ.
+		void swap(vector &x)
+		{
+				allocator_type	temp_allocator = x._allocator;
+				value_type 		*temp_data = x._data;
+				size_type 		temp_capacity = x._capacity;
+				size_type 		temp_size = x._size;
+				x._allocator = _allocator;
+				x._data = _data;
+				x._capacity = _capacity;
+				x._size = _size;
+				_allocator = temp_allocator;
+				_data = temp_data;
+				_capacity = temp_capacity;
+				_size = temp_size;
+		}
+
+//		Clear content
+//		Removes all elements from the vector (which are destroyed),
+//		leaving the container with a size of 0.
+		void clear()
+		{
+			for (; _size; _size--)
+				_allocator.destroy(&_data[_size]);
+		}
+
 	private:
 		allocator_type	_allocator;
 		value_type 		*_data;
