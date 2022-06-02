@@ -204,6 +204,31 @@ namespace ft
 		reference operator[](size_type n) {return _data[n];}
 		const_reference operator[](size_type n) const {return _data[n];}
 
+//		Access element
+//		Returns a reference to the element at position n in the vector.
+		reference at (size_type n)
+		{
+			if (n < _size)
+				return _data[n];
+			throw std::out_of_range("ERROR: position out of range");
+		}
+		const_reference at (size_type n) const
+		{
+			if (n < _size)
+				return _data[n];
+			throw std::out_of_range("ERROR: position out of range");
+		}
+
+//		Access first element
+//		Returns a reference to the first element in the vector.
+		reference front() {return &_data[0];}
+		const_reference front() const {return &_data[0];}
+
+//		Access last element
+//		Returns a reference to the last element in the vector.
+		reference back() {return &_data[_size - 1];}
+		const_reference back() const {return &_data[_size - 1];}
+
 	private:
 		allocator_type	_allocator;
 		value_type 		*_data;
