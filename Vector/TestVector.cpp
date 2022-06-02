@@ -246,4 +246,22 @@ int main()
 //	ft::reverse_iterator<iter_type> rev_iterator = fifth.rbegin();
 //
 //	std::cout << "The fourth element from the end is: " << rev_iterator[3] << '\n';
+	myvector.resize(5);
+	myvector.resize(20,100);
+	myvector.resize(25);
+	std::cout << "resize myvector:";
+	for (unsigned i = 0; i < myvector.size(); i++)
+		std::cout << ' ' << myvector[i];
+	std::cout << '\n';
+	std::cout 	<< "INT type tester: "
+				<< myvector.size() << " "
+				<< myvector.capacity() << " "
+				<< (myvector.empty() ? "EMPTY" : "NOT EMPTY") << " "
+				<< std::endl;
+	ft::vector<Test> tester;
+	std::cout 	<< "T type tester: "
+				<< tester.size() << " "
+				<< tester.capacity() << " "
+				<< (tester.empty() ?  "EMPTY" : "NOT EMPTY") << " "
+				<< std::endl;
 }

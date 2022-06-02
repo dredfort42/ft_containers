@@ -129,7 +129,7 @@ namespace ft
 			return *this;
 		};
 
-//		ITERATORS
+//		[V] ITERATORS
 
 //		Returns an iterator pointing to the first element in the vector.
 		iterator begin() {return &_data[0];}
@@ -148,7 +148,7 @@ namespace ft
 		reverse_iterator rend() {return reverse_iterator(begin());}
 		const_reverse_iterator rend() const {return reverse_iterator(begin());}
 
-//		CAPACITY
+//		[V] CAPACITY
 
 //		Return size (number of elements in the vector)
 		size_type size() const {return _size;}
@@ -157,10 +157,46 @@ namespace ft
 		size_type max_size() const {return _allocator.max_size();}
 
 //		Resizes the container so that it contains n elements
-//		void resize (size_type n, value_type val = value_type());
+		void resize(size_type n, value_type val = value_type())
+		{
+			if (n < _size)
+				for (; _size > n; _size--)
+					_allocator.destroy(&_data[_size]);
+			else if (n > _size && n < max_size())
+			{
+				if (n > _capacity && n <= _capacity * 2)
+					reserve(_capacity * 2);
+				else if (n > _capacity * 2)
+					reserve(n);
+				for (; _size < n; _size++)
+					_allocator.construct(&_data[_size], val);
+			}
+		}
 
 //		Return size of allocated storage capacity
 		size_type capacity() const {return _capacity;}
+
+//		Test whether vector is empty
+//		Returns whether the vector is empty (i.e. whether its size is 0).
+		bool empty() const {return _size ? false : true;}
+
+//		Requests that the vector capacity be at least enough to contain n elements.
+		void reserve (size_type n)
+		{
+			if (n > _capacity && n < max_size())
+			{
+				pointer temp = _allocator.allocate(n);
+				try {
+					std::uninitialized_copy(_data, _data + _size, temp);
+				} catch (...) {
+					_allocator.deallocate(temp, n);
+					throw;
+				}
+				_allocator.deallocate(_data, _capacity);
+				_data = temp;
+				_capacity = n;
+			}
+		}
 
 //		[V] ELEMENT ACCESS:
 
