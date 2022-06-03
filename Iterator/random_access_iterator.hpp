@@ -30,7 +30,7 @@ namespace ft {
 
 		reference &operator*() {return (*_element);}
 
-		pointer operator->() const {return &(operator*());}
+		pointer operator->() const {return _element;}
 
 		random_access_iterator operator+(difference_type n) const
 		{
