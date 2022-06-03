@@ -236,42 +236,42 @@ int main()
 		std::cout << myvector[i];
 	std::cout << '\n';
 	fifth.swap(myvector);
-	std::cout << "[21] swap fifth and myvector:" << std::endl;
+	std::cout << "[26] swap fifth and myvector:" << std::endl << "[27] ";
 	for (unsigned i = 0; i < fifth.size(); i++)
-		std::cout << ' ' << fifth[i];
-	std::cout << '\n';
+		std::cout << fifth[i];
+	std::cout << '\n' << "[28] ";
 	for (unsigned i = 0; i < myvector.size(); i++)
-		std::cout << ' ' << myvector[i];
+		std::cout << myvector[i];
 	std::cout << '\n';
 
 	myvector.erase(myvector.begin() + 1);
-	std::cout << "[22] erase [1] myvector:";
+	std::cout << "[29] erase [1] myvector:";
 	for (unsigned i = 0; i < myvector.size(); i++)
 		std::cout << ' ' << myvector[i];
 	std::cout << '\n';
-	std::cout << "[23] "
+	std::cout << "[30] "
 			  << myvector.size() << " "
 			  << myvector.capacity() << " "
 			  << (myvector.empty() ? "EMPTY" : "NOT EMPTY") << " "
 			  << std::endl;
 
 	fifth.erase(fifth.begin() + 5, fifth.begin() + 15);
-	std::cout << "[24] erase from middle in fifth:";
+	std::cout << "[31] erase from middle in fifth:";
 	for (unsigned i = 0; i < fifth.size(); i++)
 		std::cout << ' ' << fifth[i];
 	std::cout << '\n';
-	std::cout << "[25] "
+	std::cout << "[32] "
 			  << fifth.size() << " "
 			  << fifth.capacity() << " "
 			  << (fifth.empty() ? "EMPTY" : "NOT EMPTY") << " "
 			  << std::endl;
 
 	myvector.clear();
-	std::cout << "clear myvector:";
+	std::cout << "[33] clear myvector:";
 	for (unsigned i = 0; i < myvector.size(); i++)
-		std::cout << ' ' << myvector[i];
+		std::cout << myvector[i];
 	std::cout << '\n';
-	std::cout << "INT type tester: "
+	std::cout << "[34] "
 			  << myvector.size() << " "
 			  << myvector.capacity() << " "
 			  << (myvector.empty() ? "EMPTY" : "NOT EMPTY") << " "
@@ -282,22 +282,22 @@ int main()
 	third.clear();
 	third.erase(third.begin(), third.end());
 	first.assign((size_t) 7, 100);
-	std::cout << "assign first:";
+	std::cout << "[35] assign first:";
 	for (unsigned i = 0; i < first.size(); i++)
-		std::cout << ' ' << first[i];
+		std::cout << first[i];
 	std::cout << '\n';
-	std::cout << "INT type tester: "
+	std::cout << "[36] "
 			  << first.size() << " "
 			  << first.capacity() << " "
 			  << (first.empty() ? "EMPTY" : "NOT EMPTY") << " "
 			  << std::endl;
 	int myints1[] = {1776, 7, 4};
 	third.assign(myints1, myints1 + 3);
-	std::cout << "assign third:";
+	std::cout << "[37] assign third:";
 	for (unsigned i = 0; i < third.size(); i++)
-		std::cout << ' ' << third[i];
+		std::cout << third[i];
 	std::cout << '\n';
-	std::cout << "INT type tester: "
+	std::cout << "[38] "
 			  << third.size() << " "
 			  << third.capacity() << " "
 			  << (third.empty() ? "EMPTY" : "NOT EMPTY") << " "
@@ -306,11 +306,11 @@ int main()
 	myvector.assign(third.begin(), third.end());
 	for (int i = 0; i <= 21; i++)
 		myvector.push_back(42 - i);
-	std::cout << "push_back myvector:";
+	std::cout << "[39] push_back myvector:";
 	for (unsigned i = 0; i < myvector.size(); i++)
-		std::cout << ' ' << myvector[i];
+		std::cout << myvector[i];
 	std::cout << '\n';
-	std::cout << "INT type tester: "
+	std::cout << "[40] "
 			  << myvector.size() << " "
 			  << myvector.capacity() << " "
 			  << (myvector.empty() ? "EMPTY" : "NOT EMPTY") << " "
@@ -318,67 +318,70 @@ int main()
 
 	for (int i = 21; i; i--)
 		myvector.pop_back();
-	std::cout << "pop_back myvector:";
+	std::cout << "[41] pop_back myvector:";
 	for (unsigned i = 0; i < myvector.size(); i++)
 		std::cout << ' ' << myvector[i];
 	std::cout << '\n';
-	std::cout << "INT type tester: "
+	std::cout << "[42] "
 			  << myvector.size() << " "
 			  << myvector.capacity() << " "
 			  << (myvector.empty() ? "EMPTY" : "NOT EMPTY") << " "
 			  << std::endl;
 
 	myvector.insert(myvector.begin() + 4, 21);
-	std::cout << "insert single element myvector:";
+	std::cout << "[43] insert single element myvector:";
 	for (unsigned i = 0; i < myvector.size(); i++)
 		std::cout << ' ' << myvector[i];
 	std::cout << '\n';
-	std::cout << "INT type tester: "
+	std::cout << "[44] "
 			  << myvector.size() << " "
 			  << myvector.capacity() << " "
 			  << (myvector.empty() ? "EMPTY" : "NOT EMPTY") << " "
 			  << std::endl;
 
 	myvector.insert(myvector.begin() + 2, (size_t) 6, 808);
-	std::cout << "insert fill myvector:";
+	std::cout << "[45] insert fill myvector:";
 	for (unsigned i = 0; i < myvector.size(); i++)
 		std::cout << ' ' << myvector[i];
 	std::cout << '\n';
-	std::cout << "INT type tester: "
+	std::cout << "[46] "
 			  << myvector.size() << " "
 			  << myvector.capacity() << " "
 			  << (myvector.empty() ? "EMPTY" : "NOT EMPTY") << " "
 			  << std::endl;
 
 	myvector.insert(myvector.begin() + 4, fifth.begin() + 2, fifth.end() - 2);
-	std::cout << "insert range myvector:";
+	std::cout << "[47] insert range myvector:";
 	for (unsigned i = 0; i < myvector.size(); i++)
 		std::cout << ' ' << myvector[i];
 	std::cout << '\n';
-	std::cout << "INT type tester: "
+	std::cout << "[48] "
 			  << myvector.size() << " "
 			  << myvector.capacity() << " "
 			  << (myvector.empty() ? "EMPTY" : "NOT EMPTY") << " "
 			  << std::endl;
 
-	std::cout << (myvector == fifth ? "equal" : "not equal") << std::endl;
-	std::cout << (myvector == myvector ? "equal" : "not equal") << std::endl;
-	std::cout << (myvector != fifth ? "not equal" : "equal") << std::endl;
-	std::cout << (myvector != myvector ? "not equal" : "equal") << std::endl;
-	std::cout << (myvector < fifth ? "1" : "0") << std::endl;
-	std::cout << (fifth < myvector ? "1" : "0") << std::endl;
-	std::cout << (myvector < myvector ? "1" : "0") << std::endl;
-	std::cout << (myvector <= fifth ? "1" : "0") << std::endl;
-	std::cout << (fifth <= myvector ? "1" : "0") << std::endl;
-	std::cout << (myvector <= myvector ? "1" : "0") << std::endl;
-	std::cout << (myvector > fifth ? "1" : "0") << std::endl;
-	std::cout << (fifth > myvector ? "1" : "0") << std::endl;
-	std::cout << (myvector > myvector ? "1" : "0") << std::endl;
-	std::cout << (myvector >= fifth ? "1" : "0") << std::endl;
-	std::cout << (fifth >= myvector ? "1" : "0") << std::endl;
-	std::cout << (myvector >= myvector ? "1" : "0") << std::endl;
+	std::cout <<"[49] "<< (myvector == fifth ? "equal" : "not equal") << std::endl;
+	std::cout <<"[50] "<< (myvector == myvector ? "equal" : "not equal") <<
+	std::endl;
+	std::cout <<"[51] "<< (myvector != fifth ? "not equal" : "equal") <<
+	std::endl;
+	std::cout <<"[52] "<< (myvector != myvector ? "not equal" : "equal") <<
+	std::endl;
+	std::cout <<"[53] "<< (myvector < fifth ? "1" : "0") << std::endl;
+	std::cout <<"[54] "<< (fifth < myvector ? "1" : "0") << std::endl;
+	std::cout <<"[55] "<< (myvector < myvector ? "1" : "0") << std::endl;
+	std::cout <<"[56] "<< (myvector <= fifth ? "1" : "0") << std::endl;
+	std::cout <<"[57] "<< (fifth <= myvector ? "1" : "0") << std::endl;
+	std::cout <<"[58] "<< (myvector <= myvector ? "1" : "0") << std::endl;
+	std::cout <<"[59] "<< (myvector > fifth ? "1" : "0") << std::endl;
+	std::cout <<"[60] "<< (fifth > myvector ? "1" : "0") << std::endl;
+	std::cout <<"[61] "<< (myvector > myvector ? "1" : "0") << std::endl;
+	std::cout <<"[62] "<< (myvector >= fifth ? "1" : "0") << std::endl;
+	std::cout <<"[63] "<< (fifth >= myvector ? "1" : "0") << std::endl;
+	std::cout <<"[64] "<< (myvector >= myvector ? "1" : "0") << std::endl;
 
-	std::cout << "myvector:";
+	std::cout << "[65] myvector:";
 	for (unsigned i = 0; i < myvector.size(); i++)
 		std::cout << ' ' << myvector[i];
 	std::cout << " >> "
@@ -386,7 +389,7 @@ int main()
 			  << myvector.capacity() << " "
 			  << (myvector.empty() ? "EMPTY" : "NOT EMPTY") << " "
 			  << std::endl;
-	std::cout << "fifth:";
+	std::cout << "[66] fifth:";
 	for (unsigned i = 0; i < fifth.size(); i++)
 		std::cout << ' ' << fifth[i];
 	std::cout << " >> "
@@ -395,7 +398,7 @@ int main()
 			  << (fifth.empty() ? "EMPTY" : "NOT EMPTY") << " "
 			  << std::endl;
 	myvector.swap(fifth);
-	std::cout << "SWAP\n" << "myvector:";
+	std::cout << "[67] SWAP\n" << "[68] myvector:";
 	for (unsigned i = 0; i < myvector.size(); i++)
 		std::cout << ' ' << myvector[i];
 	std::cout << " >> "
@@ -403,7 +406,7 @@ int main()
 			  << myvector.capacity() << " "
 			  << (myvector.empty() ? "EMPTY" : "NOT EMPTY") << " "
 			  << std::endl;
-	std::cout << "fifth:";
+	std::cout << "[69] fifth:";
 	for (unsigned i = 0; i < fifth.size(); i++)
 		std::cout << ' ' << fifth[i];
 	std::cout << " >> "
