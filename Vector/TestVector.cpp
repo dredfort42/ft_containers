@@ -227,25 +227,10 @@ int main()
 		std::cout << ' ' << *it;
 	std::cout << '\n';
 
-
-//	std::cout << "[ITERATOR ++i] myvector contains:";
-//	for (ft::vector<int>::iterator it = myvector.rend() ; it != myvector
-//			.rbegin(); it--)
-//		std::cout << ' ' << *it;
-//	std::cout << '\n';
 	std::cout << myvector[2] << "\n";
 	std::cout << *myvector.rbegin() << "\n";
 	std::cout << *(--myvector.rend()) << "\n";
 
-
-//	ft::vector<int> riv;
-//	for (int i=0; i<10; i++) riv.push_back(i);  // myvector: 0 1 2 3 4 5 6 7 8 9
-
-//	typedef ft::vector<int>::iterator iter_type;
-//
-//	ft::reverse_iterator<iter_type> rev_iterator = fifth.rbegin();
-//
-//	std::cout << "The fourth element from the end is: " << rev_iterator[3] << '\n';
 	myvector.resize(5);
 	myvector.resize(20,100);
 	myvector.resize(25);
@@ -291,19 +276,70 @@ int main()
 				 << (myvector.empty() ? "EMPTY" : "NOT EMPTY") << " "
 				 << std::endl;
 
-//	myvector.erase(myvector.begin() + 5, myvector.begin() + 15);
-//	std::cout << "erase from middle in myvector:";
-//	for (unsigned i = 0; i < myvector.size(); i++)
-//		std::cout << ' ' << myvector[i];
-//	std::cout << '\n';
-//	std::cout 	<< "INT type tester: "
-//				 << myvector.size() << " "
-//				 << myvector.capacity() << " "
-//				 << (myvector.empty() ? "EMPTY" : "NOT EMPTY") << " "
-//				 << std::endl;
+	fifth.erase(fifth.begin() + 5, fifth.begin() + 15);
+	std::cout << "erase from middle in fifth:";
+	for (unsigned i = 0; i < fifth.size(); i++)
+		std::cout << ' ' << fifth[i];
+	std::cout << '\n';
+	std::cout 	<< "INT type tester: "
+				 << fifth.size() << " "
+				 << fifth.capacity() << " "
+				 << (fifth.empty() ? "EMPTY" : "NOT EMPTY") << " "
+				 << std::endl;
 
 	myvector.clear();
 	std::cout << "clear myvector:";
+	for (unsigned i = 0; i < myvector.size(); i++)
+		std::cout << ' ' << myvector[i];
+	std::cout << '\n';
+	std::cout 	<< "INT type tester: "
+				 << myvector.size() << " "
+				 << myvector.capacity() << " "
+				 << (myvector.empty() ? "EMPTY" : "NOT EMPTY") << " "
+				 << std::endl;
+
+	first.clear();
+	second.clear();
+	third.clear();
+	third.erase(third.begin(), third.end());
+	first.assign ((size_t)7,100);
+	std::cout << "assign first:";
+	for (unsigned i = 0; i < first.size(); i++)
+		std::cout << ' ' << first[i];
+	std::cout << '\n';
+	std::cout 	<< "INT type tester: "
+				 << first.size() << " "
+				 << first.capacity() << " "
+				 << (first.empty() ? "EMPTY" : "NOT EMPTY") << " "
+				 << std::endl;
+	int myints1[] = {1776,7,4};
+	third.assign(myints1,myints1 + 3);
+	std::cout << "assign third:";
+	for (unsigned i = 0; i < third.size(); i++)
+		std::cout << ' ' << third[i];
+	std::cout << '\n';
+	std::cout 	<< "INT type tester: "
+				 << third.size() << " "
+				 << third.capacity() << " "
+				 << (third.empty() ? "EMPTY" : "NOT EMPTY") << " "
+				 << std::endl;
+
+	myvector.assign(third.begin(), third.end());
+	for (int i = 0; i <= 21; i++)
+		myvector.push_back(42 - i);
+	std::cout << "push_back myvector:";
+	for (unsigned i = 0; i < myvector.size(); i++)
+		std::cout << ' ' << myvector[i];
+	std::cout << '\n';
+	std::cout 	<< "INT type tester: "
+				 << myvector.size() << " "
+				 << myvector.capacity() << " "
+				 << (myvector.empty() ? "EMPTY" : "NOT EMPTY") << " "
+				 << std::endl;
+
+	for (int i = 21; i; i--)
+		myvector.pop_back();
+	std::cout << "pop_back myvector:";
 	for (unsigned i = 0; i < myvector.size(); i++)
 		std::cout << ' ' << myvector[i];
 	std::cout << '\n';

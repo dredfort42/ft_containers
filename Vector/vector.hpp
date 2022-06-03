@@ -186,9 +186,12 @@ namespace ft
 			if (n > _capacity && n < max_size())
 			{
 				pointer temp = _allocator.allocate(n);
-				try {
+				try
+				{
 					std::uninitialized_copy(_data, _data + _size, temp);
-				} catch (...) {
+				}
+				catch (...)
+				{
 					_allocator.deallocate(temp, n);
 					throw;
 				}
@@ -233,15 +236,89 @@ namespace ft
 //		In the range version, the new contents are elements constructed
 //		from each of the elements in the range between first and last,
 //		in the same order.
-//		template <class InputIterator>
-//		void assign (InputIterator first, InputIterator last)
-//		{
-//			...
-//		}
+		template <class InputIterator>
+		void assign(InputIterator first, InputIterator last)
+		{
+			clear();
+			size_type distance = ft::distance(first, last);
+
+			if (_capacity < distance)
+			{
+				if (_capacity * 2 >= distance)
+					reserve(_capacity * 2);
+				else
+					reserve(distance);
+			}
+			for (; first < last; _size++, first++)
+				_allocator.construct(&(*(begin() + _size)), *first);
+		}
 
 //		In the fill version, the new contents are n elements,
 //		each initialized to a copy of val.
-//		void assign (size_type n, const value_type& val);
+		void assign(size_type n, const value_type &val)
+		{
+			clear();
+			if (_capacity < n)
+			{
+				if (_capacity * 2 >= n)
+					reserve(_capacity * 2);
+				else
+					reserve(n);
+			}
+			for (; _size < n; _size++)
+				_allocator.construct(&(*(begin() + _size)), val);
+		}
+
+//		Add element at the end
+//		Adds a new element at the end of the vector, after its current last element.
+//		The content of val is copied (or moved) to the new element.
+		void push_back(const value_type &val)
+		{
+			if (!_size)
+				reserve(1);
+			else if (_size == _capacity)
+				reserve(_capacity * 2);
+			_allocator.construct(&(*end()), val);
+			_size++;
+		}
+
+//		Delete last element
+//		Removes the last element in the vector, effectively reducing the container size by one.
+		void pop_back()
+		{
+			if (_size)
+			{
+				_allocator.destroy(&(*(end() - 1)));
+				_size--;
+			}
+		}
+
+//		Insert elements
+//		The vector is extended by inserting new elements before the element at the specified position, effectively increasing the container size by the number of elements inserted.
+
+//		single element (1)
+		iterator insert (iterator position, const value_type &val)
+		{
+//			allocator_type	temp_allocator;
+//			value_type 		*temp_data;
+//			size_type 		temp_capacity;
+//			size_type 		temp_size = _size + 1;
+//			if (!_size)
+//			{
+//				_allocator.allocate(1);
+//
+//			else if (_size == _capacity)
+//				temp.reserve(_capacity * 2);
+//			for (int i = 0; begin() + i < position; i++)
+//
+		}
+
+////		fill (2)
+//		void insert (iterator position, size_type n, const value_type& val);
+//
+////		range (3)
+//		template <class InputIterator>
+//		void insert (iterator position, InputIterator first, InputIterator last);
 
 //		Removes from the vector either a single element (position).
 		iterator erase(iterator position)
@@ -262,17 +339,18 @@ namespace ft
 		}
 
 //		Removes from the vector a range of elements ([first,last)).
-		iterator erase (iterator first, iterator last)
+		iterator erase(iterator first, iterator last)
 		{
 			iterator temp = first;
-			for (; first != last; first++)
-				_allocator.destroy(&(*first));
-			for (int i = 0; i < end() - last; i++)
+			size_type distance = ft::distance(first, last);
+
+			for (; first < end() - distance; first++)
 			{
-				_allocator.construct(&(*(temp + i), *(last + i)));
-				_allocator.destroy(&(*(last + i)));
+				_allocator.destroy(&(*first));
+				_allocator.construct(&(*first), *(first + distance));
+				_allocator.destroy(&(*(first + distance)));
 			}
-			_size -= last - temp;
+			_size -= distance;
 			return temp;
 		}
 
