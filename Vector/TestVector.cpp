@@ -100,7 +100,7 @@ int main()
 			  << "capacity: " << defaultConstructVectorT.capacity()
 			  << std::endl;
 
-	ft::vector<int> fillConstructVectorInt((size_t) 10, 42);
+	ft::vector<int> fillConstructVectorInt(10, 42);
 	std::cout << "[03] size: " << fillConstructVectorInt.size() << " | "
 			  << "capacity: " << fillConstructVectorInt.capacity() << std::endl;
 	ft::vector<Test> fillConstructVectorT(10, Test((unsigned) 21));
@@ -137,7 +137,7 @@ int main()
 		std::cout << ' ' << *it;
 	std::cout << '\n';
 
-	ft::vector<int> second((size_t) 4, 100);
+	ft::vector<int> second(4, 100);
 	std::cout << "[09] The contents of second are:";
 	for (ft::vector<int>::iterator it = second.begin();
 		 it != second.end(); ++it)
@@ -158,8 +158,8 @@ int main()
 	std::cout << '\n';
 
 
-	ft::vector<int> foo((size_t) 3, 0);
-	ft::vector<int> bar((size_t) 5, 0);
+	ft::vector<int> foo( 3, 0);
+	ft::vector<int> bar( 5, 0);
 
 	bar = foo;
 	foo = ft::vector<int>();
@@ -281,7 +281,7 @@ int main()
 	second.clear();
 	third.clear();
 	third.erase(third.begin(), third.end());
-	first.assign((size_t) 7, 100);
+	first.assign(7, 100);
 	std::cout << "[35] assign first:";
 	for (unsigned i = 0; i < first.size(); i++)
 		std::cout << first[i];
@@ -339,7 +339,7 @@ int main()
 			  << (myvector.empty() ? "EMPTY" : "NOT EMPTY") << " "
 			  << std::endl;
 
-	myvector.insert(myvector.begin() + 2, (size_t) 6, 808);
+	myvector.insert(myvector.begin() + 2, 6, 808);
 	std::cout << "[45] insert fill myvector:";
 	for (unsigned i = 0; i < myvector.size(); i++)
 		std::cout << ' ' << myvector[i];

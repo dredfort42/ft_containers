@@ -5,7 +5,10 @@
 #include <memory>
 #include "../Iterator/random_access_iterator.hpp"
 #include "../Iterator/reverse_iterator.hpp"
-#include "../lexicographical_compare.hpp"
+#include "../Utilities/enable_if.hpp"
+#include "../Utilities/is_integral.hpp"
+#include "../Utilities/equal.hpp"
+#include "../Utilities/lexicographical_compare.hpp"
 
 //#include <iterator>
 
@@ -67,7 +70,9 @@ namespace ft
 //		with each element constructed from its corresponding element in that range, in the same order.
 		template<class InputIterator>
 		vector(InputIterator first, InputIterator last,
-			   const allocator_type &allocator = allocator_type())
+			   const allocator_type &allocator = allocator_type(),
+			   typename ft::enable_if<!ft::is_integral<InputIterator>::value,
+			   InputIterator>::type* = nullptr)
 		{
 			_allocator = allocator;
 			_size = 0;
@@ -264,7 +269,9 @@ namespace ft
 //		from each of the elements in the range between first and last,
 //		in the same order.
 		template<class InputIterator>
-		void assign(InputIterator first, InputIterator last)
+		void assign(InputIterator first, InputIterator last,
+					typename ft::enable_if<!ft::is_integral<InputIterator>::value,
+					InputIterator>::type* = nullptr)
 		{
 			clear();
 			size_type distance = ft::distance(first, last);
@@ -399,7 +406,9 @@ namespace ft
 
 //		range (3)
 		template<class InputIterator>
-		void insert(iterator position, InputIterator first, InputIterator last)
+		void insert(iterator position, InputIterator first, InputIterator last,
+					typename ft::enable_if<!ft::is_integral<InputIterator>::value,
+					InputIterator>::type* = nullptr)
 		{
 			size_type distance = ft::distance(first, last);
 
@@ -526,6 +535,9 @@ namespace ft
 			return true;
 		else
 			return false;
+//		if (ft::equal(lhs.begin(), lhs.end(), rhs.begin()))
+//			return true;
+		return false;
 	}
 
 	template<class T, class Alloc>
@@ -570,8 +582,8 @@ namespace ft
 	}
 
 //	[V] EXCHANGE CONTENTS OF VECTORS
-	template <class T, class Alloc>
-	void swap (ft::vector<T,Alloc> &x, ft::vector<T,Alloc> &y)
+	template<class T, class Alloc>
+	void swap(ft::vector<T, Alloc> &x, ft::vector<T, Alloc> &y)
 	{
 		x.swap(y);
 	}
