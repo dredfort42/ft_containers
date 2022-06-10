@@ -260,6 +260,21 @@ namespace ft
 		void assign(InputIterator first, InputIterator last,
 					typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = nullptr)
 		{
+//
+//			clear();
+//			size_type distance = ft::distance(first, last);
+//			if (distance > _capacity)
+//			{
+//				_allocator.deallocate(_data, _capacity);
+//				_data = _allocator.allocate(distance);
+//				_capacity = distance;
+//			}
+//			for (InputIterator it = first; it != last; it++)
+//			{
+//				_allocator.construct(_data + _size, *it);
+//				_size++;
+//			}
+
 			clear();
 			size_type distance = ft::distance(first, last);
 
@@ -272,6 +287,8 @@ namespace ft
 			}
 			for (; first < last; _size++, first++)
 				_allocator.construct(_data + _size, *first);
+
+
 //			for (InputIterator it = first; it != last; _size++, it++)
 //				_allocator.construct(_data + _size, *it);
 		}
@@ -393,29 +410,62 @@ namespace ft
 		void insert(iterator position, InputIterator first, InputIterator last,
 					typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = nullptr)
 		{
+//
+//			size_type n = ft::distance(first, last);
+//			size_type distance = ft::distance(begin(), position);
+//			pointer tmp = _allocator.allocate(n);
+//			try {
+//				for (size_type i = 0; i < n; i++)
+//					_allocator.construct(tmp + i, *first++);
+//			}
+//			catch(...) {
+//				for (size_type i = 0; tmp + i != 0 && i < n; i++) {
+//					_allocator.destroy(tmp + i);
+//				}
+//				_allocator.deallocate(tmp, n);
+//				throw;
+//			}
+//			if (_capacity == _size && _capacity)
+//				reserve(_capacity * 2);
+//			if (_capacity < _size + n)
+//				reserve(_size + n);
+//			for (size_type i = 0; _size - i != distance; ++i){
+//				_allocator.construct(_data + _size - 1 - i + n, _data[_size - i -
+//																1]);
+//				_allocator.destroy(_data + _size - i - 1);
+//			}
+//			for (size_type i = 0; i < n; i++) {
+//				_allocator.construct(_data + distance + i, tmp[i]);
+//				_allocator.destroy(tmp + i);
+//			}
+//			_size = ft::distance(begin(), end());
+//			_allocator.deallocate(tmp, n);
 
 			size_type n = ft::distance(first, last);
-			size_type distance = ft::distance(begin(), position);
+			size_type distance = ft::distance(position, end());
 			pointer tmp = _allocator.allocate(n);
 			try {
 				for (size_type i = 0; i < n; i++)
 					_allocator.construct(tmp + i, *first++);
 			}
 			catch(...) {
-				for (size_type i = 0; tmp + i != 0 && i < n; i++) {
+				for (size_type i = 0; tmp + i && i < n; i++)
 					_allocator.destroy(tmp + i);
-				}
 				_allocator.deallocate(tmp, n);
-				throw;
+				throw std::error_condition();
 			}
-			if (_capacity == _size && _capacity)
-				reserve(_capacity * 2);
-			if (_capacity < _size + n)
-				reserve(_size + n);
-			for (size_type i = 0; _size - i != distance; ++i){
-				_allocator.construct(_data + _size - 1 - i + n, _data[_size - i -
-																1]);
-				_allocator.destroy(_data + _size - i - 1);
+			if (_size + n > _capacity)
+			{
+				if (_size + n >= _capacity * 2)
+					_capacity = _size + n;
+				else
+					_capacity *= 2;
+				reserve(_capacity);
+			}
+			for (size_type i = 1; _size - i != distance + 1; i++)
+			{
+				_allocator.construct(_data + _size - i + n, _data[_size - i]);
+				_allocator.destroy(_data + _size - i);
 			}
 			for (size_type i = 0; i < n; i++) {
 				_allocator.construct(_data + distance + i, tmp[i]);
@@ -423,39 +473,6 @@ namespace ft
 				_size++;
 			}
 			_allocator.deallocate(tmp, n);
-
-//			size_type n = ft::distance(first, last);
-//			size_type distance = ft::distance(position, end());
-//			pointer tmp = _allocator.allocate(n);
-//			try {
-//				for (size_type i = 0; i < n; i++)
-//					_allocator.construct(tmp + i, *first++);
-//			}
-//			catch(...) {
-//				for (size_type i = 0; tmp + i && i < n; i++)
-//					_allocator.destroy(tmp + i);
-//				_allocator.deallocate(tmp, n);
-//				throw std::error_condition();
-//			}
-//			if (_size + n > _capacity)
-//			{
-//				if (_size + n >= _capacity * 2)
-//					_capacity = _size + n;
-//				else
-//					_capacity *= 2;
-//				reserve(_capacity);
-//			}
-//			for (size_type i = 1; _size - i != distance + 1; i++)
-//			{
-//				_allocator.construct(_data + _size - i + n, _data[_size - i]);
-//				_allocator.destroy(_data + _size - i);
-//			}
-//			for (size_type i = 0; i < n; i++) {
-//				_allocator.construct(_data + distance + i, tmp[i]);
-//				_allocator.destroy(tmp + i);
-//				_size++;
-//			}
-//			_allocator.deallocate(tmp, n);
 		}
 
 //		Removes from the vector either a single element (position).
@@ -523,8 +540,11 @@ namespace ft
 //		leaving the container with a size of 0.
 		void clear()
 		{
-			for (; _size; _size--)
-				_allocator.destroy(_data + _size);
+			while (_size > 0)
+				_allocator.destroy(_data + (--_size));
+
+//			for (; _size; _size--)
+//				_allocator.destroy(_data + _size);
 		}
 
 //		[V] ALLOCATOR:
