@@ -5,8 +5,11 @@ namespace ft
 	template<typename T, bool is_integral_type>
 	struct integral_type
 	{
-		typedef T type;
+		typedef T 				value_type;
 		static const bool value = is_integral_type;
+
+		operator value_type() const
+		{ return value; }
 	};
 
 //	https://www.cplusplus.com/reference/type_traits/is_integral/
@@ -75,5 +78,6 @@ namespace ft
 			: public ft::integral_type<unsigned long long int, true> {};
 
 	template<typename T>
-	struct is_integral : public is_integral_type<T> {};
+	struct is_integral
+			: public is_integral_type<T> {};
 }
