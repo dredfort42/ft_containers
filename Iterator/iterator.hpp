@@ -46,13 +46,13 @@ namespace ft
 
 //	Distance between iterators
 //	Calculates the number of elements between first and last.
-	template<class InputIter>
-	typename ft::iterator_traits<InputIter>::difference_type
-	distance(InputIter first, InputIter last)
+	template<class InputIterator>
+	typename ft::iterator_traits<InputIterator>::difference_type
+	distance(InputIterator first, InputIterator last)
 	{
-		typename ft::iterator_traits<InputIter>::difference_type r = 0;
+		typename ft::iterator_traits<InputIterator>::difference_type distance = 0;
 		for (; first != last; first++)
-			r++;
-		return r;
+			distance++;
+		return distance;
 	}
 }

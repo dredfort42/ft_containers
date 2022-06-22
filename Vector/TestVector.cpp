@@ -83,11 +83,66 @@ std::ostream &operator<<(std::ostream &out, const Test &value)
 	return out;
 }
 
+int _ratio = 10000;
+
+template <typename T>
+ft::vector<int> assign_std_test(ft::vector<T> vector) {
+	ft::vector<int> v;
+	ft::vector<int> tmp;
+	vector.assign(3, 3);
+	tmp.assign(4000 * _ratio, 1);
+	vector.assign(tmp.begin(), tmp.end());
+	for (size_t i = 0; i < tmp.size(); ++i)
+		v.push_back(vector[i]);
+	v.push_back(vector.size());
+	v.push_back(vector.capacity());
+	return v;
+}
+
+template <typename T>
+ft::vector<int> assign_test(ft::vector<T> vector)
+{
+	ft::vector<int> v;
+	ft::vector<int> tmp, tmp2;
+	vector.assign(3, 3);
+	tmp.assign(4000 * _ratio, 1);
+	tmp2.assign(4 * _ratio, 1);
+	vector.assign(tmp.begin(), tmp.end());
+	v.push_back(vector[1]);
+	v.push_back(vector.size());
+	v.push_back(vector.capacity());
+	vector.assign(tmp2.begin(), tmp2.end());
+	v.push_back(vector[444]);
+	v.push_back(vector.size());
+	v.push_back(vector.capacity());
+	return v;
+}
+
+template <typename T>
+ft::vector<int> constructor_test(ft::vector<T> vector) {
+	ft::vector<int> v;
+	ft::vector<int> tmp0(vector);
+	ft::vector<int> tmp(1000 * _ratio, 4), tmp2(1000 * _ratio, 5);
+	tmp = tmp2;
+	ft::vector<int> tmp3(tmp);
+	ft::vector<int> tmp4(tmp.begin(), tmp.end());
+	v.push_back(tmp4.size());
+	v.push_back(tmp4.capacity());
+	v.push_back(tmp[2]);
+	v.push_back(tmp3[2]);
+	v.push_back(tmp4[2]);
+	try { ft::vector<int> tmp5(-1, -1); }
+	catch (std::exception &e) { v.push_back(1); }
+	return v;
+}
+
 int main()
 {
 //	Test t1((unsigned)1);
 //	Test t2((unsigned)1);
 //	std::cout << (t1 == t2) << std::endl;
+
+
 
 	std::cout << "=-=-=-=-= CONSTRUCT VECTOR =-=-=-=-=" << std::endl;
 
@@ -95,6 +150,39 @@ int main()
 	std::cout << "[01] size: " << defaultConstructVectorInt.size() << " | "
 			  << "capacity: " << defaultConstructVectorInt.capacity()
 			  << std::endl;
+
+	ft::vector<int> constructor_test0 = constructor_test
+			(defaultConstructVectorInt);
+	for (unsigned i = 0; i < constructor_test0.size(); i++)
+		std::cout << ' ' << constructor_test0[i];
+	std::cout << '\n';
+	std::cout << "[constructor_test] "
+			  << constructor_test0.size() << " "
+			  << constructor_test0.capacity() << " "
+			  << (constructor_test0.empty() ? "EMPTY" : "NOT EMPTY") << " "
+			  << std::endl;
+
+//	ft::vector<int> assign_test0 = assign_test(defaultConstructVectorInt);
+//	for (unsigned i = 0; i < assign_test0.size(); i++)
+//		std::cout << ' ' << assign_test0[i];
+//	std::cout << '\n';
+//	std::cout << "[assign_test] "
+//			  << assign_test0.size() << " "
+//			  << assign_test0.capacity() << " "
+//			  << (assign_test0.empty() ? "EMPTY" : "NOT EMPTY") << " "
+//			  << std::endl;
+
+//	ft::vector<int> assign_std_test0 = assign_std_test(defaultConstructVectorInt);
+//	for (unsigned i = 0; i < assign_std_test0.size(); i++)
+//		std::cout << ' ' << assign_std_test0[i];
+//	std::cout << '\n';
+//	std::cout << "[assign_std_test] "
+//			  << assign_std_test0.size() << " "
+//			  << assign_std_test0.capacity() << " "
+//			  << (assign_std_test0.empty() ? "EMPTY" : "NOT EMPTY") << " "
+//			  << std::endl;
+
+
 	ft::vector<Test> defaultConstructVectorT;
 	std::cout << "[02] size: " << defaultConstructVectorT.size() << " | "
 			  << "capacity: " << defaultConstructVectorT.capacity()
