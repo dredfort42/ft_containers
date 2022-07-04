@@ -4,7 +4,7 @@ namespace ft
 {
 	template<class T>
 	void swap(T &lhs, T &rhs) {
-		T temp(lhs);
+		T temp = lhs;
 		lhs = rhs;
 		rhs = temp;
 	}

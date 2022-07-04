@@ -1,16 +1,9 @@
-// https://www.cplusplus.com/reference/iterator/
-// https://www.cplusplus.com/reference/iterator/iterator_traits/
-
 #pragma once
 
 #include <iostream>
 
 namespace ft
 {
-//	Iterator base class
-//	This is a base class template that can be used to derive iterators from it.
-//	It isn't an iterator class and does not provide any of the functionality
-//	an iterator is expected to have.
 	template<class Category, class T, class Distance = ptrdiff_t,
 			class Pointer = T *, class Reference = T &>
 	struct iterator
@@ -22,8 +15,6 @@ namespace ft
 		typedef Category 	iterator_category;
 	};
 
-//	Iterator traits
-//	Traits class defining properties of iterators.
 	template<class Iterator>
 	struct iterator_traits
 	{
@@ -44,8 +35,6 @@ namespace ft
 		typedef std::random_access_iterator_tag			iterator_category;
 	};
 
-//	Distance between iterators
-//	Calculates the number of elements between first and last.
 	template<class InputIterator>
 	typename ft::iterator_traits<InputIterator>::difference_type
 	distance(InputIterator first, InputIterator last)
