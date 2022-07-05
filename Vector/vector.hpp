@@ -97,7 +97,6 @@ namespace ft
 			_capacity = x._capacity;
 			_size = x._size;
 			_data = _allocator.allocate(_capacity);
-			value_type *tmp = _data;
 			for (size_type i = 0; i < _size; i++)
 				_allocator.construct(_data + i, x[i]);
 			return *this;

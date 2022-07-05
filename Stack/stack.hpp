@@ -13,25 +13,25 @@ namespace ft
 		typedef size_t size_type;
 
 		explicit stack(const container_type &ctnr = container_type())
-		{ sct = ctnr; }
+		{ c = ctnr; }
 
 		bool empty() const
-		{ return sct.empty(); }
+		{ return c.empty(); }
 
 		size_type size() const
-		{ return sct.size(); }
+		{ return c.size(); }
 
 		value_type &top()
-		{ return sct.back(); }
+		{ return c.back(); }
 
 		const value_type &top() const
-		{ return sct.back(); }
+		{ return c.back(); }
 
 		void push(const value_type &val)
-		{ sct.push_back(val); }
+		{ c.push_back(val); }
 
 		void pop()
-		{ sct.pop_back(); }
+		{ c.pop_back(); }
 
 		template <class fT, class fContainer>
 		friend bool operator==(const ft::stack<fT, fContainer> &lhs,
@@ -58,7 +58,7 @@ namespace ft
 							   const ft::stack<fT, fContainer> &rhs);
 
 	protected:
-		container_type sct;
+		container_type c;
 	};
 
 	template <class T, class Container>
