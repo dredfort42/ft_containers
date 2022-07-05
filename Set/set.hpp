@@ -10,7 +10,8 @@
 #include "../Iterator/reverse_iterator.hpp"
 #include "../RedBlackTree/red_black_tree.hpp"
 
-namespace ft {
+namespace ft
+{
 	template <class Key, class Compare = ft::less<Key>, class Alloc = std::allocator<Key> >
 	class set
 	{
@@ -35,12 +36,14 @@ namespace ft {
 		typedef red_black_tree<value_type, value_compare, node_allocator_type> 	tree_type;
 		typedef typename ft::node<value_type> 									*p_node;
 
+	public:
 		explicit set(const key_compare &comp = key_compare(),
 					 const allocator_type &alloc = allocator_type())
 		{
 			_allocator = alloc;
-			_root = _tree.create_node(value_type());
+			_joint = _tree.create_node(value_type());
 			_key_compare = comp;
+			_size = 0;
 		}
 
 		template <class InputIterator>
@@ -49,22 +52,24 @@ namespace ft {
 			const allocator_type &alloc = allocator_type())
 		{
 			_allocator = alloc;
-			_root = _tree.create_node(value_type());
+			_joint = _tree.create_node(value_type());
 			_key_compare = comp;
+			_size = 0;
 			insert(first, last);
 		}
 
 		~set()
 		{
-			_tree.clear(&_root->parent);
-			_tree.clear(&_root);
+			_tree.clear(&_joint->parent);
+			_tree.clear(&_joint);
 		}
 
 		set(const set &src)
 		{
 			_allocator = src._allocator;
-			_root = _tree.create_node(value_type());
+			_joint = _tree.create_node(value_type());
 			_key_compare = src._key_compare;
+			_size = src._size;
 			*this = src;
 		}
 
@@ -78,16 +83,16 @@ namespace ft {
 		}
 
 		iterator begin()
-		{ return iterator(_root, _tree.min_node(_root->parent)); }
+		{ return iterator(_joint, _tree.min_node(_joint->parent)); }
 
 		const_iterator begin() const
-		{ return const_iterator(_root, _tree.min_node(_root->parent)); }
+		{ return const_iterator(_joint, _tree.min_node(_joint->parent)); }
 
 		iterator end()
-		{ return iterator(_root, 0); }
+		{ return iterator(_joint, nullptr); }
 
 		const_iterator end() const
-		{ return const_iterator(_root, 0); }
+		{ return const_iterator(_joint, nullptr); }
 
 		reverse_iterator rbegin()
 		{ return reverse_iterator(end()); }
@@ -112,17 +117,17 @@ namespace ft {
 
 		ft::pair<iterator, bool> insert(const value_type &val)
 		{
-			bool res = _tree.insert(&_root->parent, _tree.create_node(val));
+			bool res = _tree.insert(&_joint->parent, _tree.create_node(val));
 			_size += res;
-			p_node p = _tree.find_node(_root->parent, val);
-			return ft::pair<iterator, bool>(iterator(_root, p), res);
+			p_node ptr = _tree.find_node(_joint->parent, val);
+			return ft::pair<iterator, bool>(iterator(_joint, ptr), res);
 		}
 
 		iterator insert(iterator, const value_type &val)
 		{
-			_size += _tree.insert(&_root->parent, _tree.create_node(val));
-			p_node p = _tree.find_node(_root->parent, val);
-			return iterator(_root, p);
+			_size += _tree.insert(&_joint->parent, _tree.create_node(val));
+			p_node ptr = _tree.find_node(_joint->parent, val);
+			return iterator(_joint, ptr);
 		}
 
 		template <class InputIterator>
@@ -134,16 +139,14 @@ namespace ft {
 
 		void erase(iterator position)
 		{
-			bool res = _tree.erase(&_root->parent, *position);
-
+			bool res = _tree.erase(&_joint->parent, *position);
 			if (res)
 				--_size;
 		}
 
 		size_type erase(const key_type &k)
 		{
-			bool res = (bool)_tree.erase(&_root->parent, k);
-
+			bool res = (bool)_tree.erase(&_joint->parent, k);
 			if (res)
 				--_size;
 			return res;
@@ -157,15 +160,16 @@ namespace ft {
 
 		void swap(set &x)
 		{
-			ft::swap(x._root, _root);
+			ft::swap(x._allocator, _allocator);
+			ft::swap(x._joint, _joint);
 			ft::swap(x._key_compare, _key_compare);
 			ft::swap(x._size, _size);
 		}
 
 		void clear()
 		{
-			_tree.clear(&_root->parent);
-			_root->parent = 0;
+			_tree.clear(&_joint->parent);
+			_joint->parent = 0;
 			_size = 0;
 		}
 
@@ -177,44 +181,43 @@ namespace ft {
 
 		iterator find(const key_type &k)
 		{
-			p_node p = _tree.find_node(_root->parent, k);
-			return iterator(_root, p);
+			p_node ptr = _tree.find_node(_joint->parent, k);
+			return iterator(_joint, ptr);
 		}
 
 		const_iterator find(const key_type &k) const
 		{
-			p_node p = _tree.find_node(_root->parent, k);
-			return const_iterator(_root, p);
+			p_node ptr = _tree.find_node(_joint->parent, k);
+			return const_iterator(_joint, ptr);
 		}
 
 		size_type count(const key_type &k) const
 		{
-			if (_tree.find_node(_root->parent, k))
+			if (_tree.find_node(_joint->parent, k))
 				return 1;
 			return 0;
 		}
 
 		iterator lower_bound(const key_type &k)
-		{ return iterator(_root, _tree.lower(_root->parent, k)); }
+		{ return iterator(_joint, _tree.lower(_joint->parent, k)); }
 
 		const_iterator lower_bound(const key_type &k) const
-		{ return const_iterator(_root, _tree.lower(_root->parent, k)); }
+		{ return const_iterator(_joint, _tree.lower(_joint->parent, k)); }
 
-		iterator upper_bound(const key_type &k) {
-			p_node p = _tree.lower(_root->parent, k);
-			iterator res(_root, p);
-
-			if (p && p->value == k)
+		iterator upper_bound(const key_type &k)
+		{
+			p_node tmp = _tree.lower(_joint->parent, k);
+			iterator res(_joint, tmp);
+			if (tmp && tmp->value == k)
 				++res;
 			return iterator(res);
 		}
 
 		const_iterator upper_bound(const key_type &k) const
 		{
-			p_node p = _tree.lower(_root->parent, k);
-			iterator res(_root, p);
-
-			if (p && p->value == k)
+			p_node tmp = _tree.lower(_joint->parent, k);
+			iterator res(_joint, tmp);
+			if (tmp && tmp->value == k)
 				++res;
 			return const_iterator(res);
 		}
@@ -225,13 +228,14 @@ namespace ft {
 		ft::pair<const_iterator, const_iterator> equal_range(const key_type &k) const
 		{ return ft::make_pair(lower_bound(k), upper_bound(k)); }
 
-		allocator_type get_allocator() const
-		{ return _allocator; }
+		allocator_type get_allocator() const {
+			return _allocator;
+		}
 
 	private:
 		tree_type		_tree;
 		allocator_type	_allocator;
-		p_node			_root;
+		p_node			_joint;
 		key_compare		_key_compare;
 		size_type		_size;
 	};

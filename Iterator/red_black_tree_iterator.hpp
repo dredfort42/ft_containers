@@ -19,7 +19,7 @@ namespace ft
 		typedef pointer														iterator_type;
 		typedef ft::node<typename ft::switch_const<T>::type> 		        *p_node;
 
-		rbt_iterator()
+		rbt_iterator(): _root(nullptr), _joint(nullptr)
 		{}
 
 		explicit rbt_iterator(const p_node &root, const p_node &node)

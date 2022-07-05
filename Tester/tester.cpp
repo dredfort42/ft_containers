@@ -1,5 +1,6 @@
 // compilation:
-// c++ -g -O0 -fsanitize=address -Wall -Wextra -Werror  -D STATUS=1 TestVector.cpp -o vector.out && ./vector.out
+// c++ -g -O0 -fsanitize=address -Wall -Wextra -Werror  -D STATUS=1 tester.cpp  -o tester.out && ./tester.out
+
 #include <iostream>
 #include <string>
 #include <deque>
@@ -9,14 +10,14 @@
 	#include <map>
 	#include <stack>
 	#include <vector>
+	#include <set>
 	namespace ft = std;
 #else
 	#include "../Map/map.hpp"
 	#include "../Stack/stack.hpp"
 	#include "../Vector/vector.hpp"
+	#include "../Set/set.hpp"
 #endif
-
-
 
 #define MAX_RAM 4294967296
 #define BUFFER_SIZE 4096
@@ -517,6 +518,22 @@ int main()
 			  << fifth.capacity() << " "
 			  << (fifth.empty() ? "EMPTY" : "NOT EMPTY") << " "
 			  << std::endl;
+
+
+	ft::set<int> myset;
+
+	for (int i=1; i<=5; i++) myset.insert(i*10);   // myset: 10 20 30 40 50
+
+	ft::pair<ft::set<int>::const_iterator,ft::set<int>::const_iterator> ret;
+	ret = myset.equal_range(30);
+
+	std::cout << "the lower bound points to: " << *ret.first << '\n';
+	std::cout << "the upper bound points to: " << *ret.second << '\n';
+
+
+
+
+
 
 
 	const int seed = _ratio;
